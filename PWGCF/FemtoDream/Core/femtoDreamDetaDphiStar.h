@@ -278,7 +278,6 @@ class FemtoDreamDetaDphiStar
             indexOfDaughterPart1 = part1.index() - 2 + i;
             indexOfDaughterPart2 = part2.index() - 2 + j;
           }
-
           auto daughterPart1 = particles.begin() + indexOfDaughterPart1;
           auto daughterPart2 = particles.begin() + indexOfDaughterPart2;
           auto deta = daughterPart1.eta() - daughterPart2.eta();
@@ -727,10 +726,10 @@ class FemtoDreamDetaDphiStar
   // possiboility to run old code is turned on so a proper comparison of both code versions can be done
   bool runOldVersion = true;
 
-  std::array<std::array<std::shared_ptr<TH2>, 4>, 3> histdetadpi{};
-  std::array<std::array<std::shared_ptr<TH2>, 9>, 3> histdetadpiRadii{};
-  std::array<std::shared_ptr<THnSparse>, 3> histdetadpi_eta{};
-  std::array<std::shared_ptr<THnSparse>, 3> histdetadpi_phi{};
+  std::array<std::array<std::shared_ptr<TH2>, 4>, 4> histdetadpi{};
+  std::array<std::array<std::shared_ptr<TH2>, 9>, 4> histdetadpiRadii{};
+  std::array<std::shared_ptr<THnSparse>, 4> histdetadpi_eta{};
+  std::array<std::shared_ptr<THnSparse>, 4> histdetadpi_phi{};
 
   ///  Calculate phi at all required radii stored in tmpRadiiTPC
   /// Magnetic field to be provided in Tesla

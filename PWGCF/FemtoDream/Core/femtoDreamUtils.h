@@ -131,6 +131,14 @@ inline int checkDaughterType(o2::aod::femtodreamparticle::ParticleType partType,
     partOrigin = aod::femtodreamMCparticle::ParticleOriginMCTruth::kSecondary;
   } else if (partType == o2::aod::femtodreamparticle::ParticleType::kCascadeBachelor) {
     partOrigin = aod::femtodreamMCparticle::ParticleOriginMCTruth::kSecondary;
+  } else if (partType == o2::aod::femtodreamparticle::ParticleType::kResoChild) {
+    switch (std::abs(motherPDG)) {
+      case o2::constants::physics::Pdg::kPhi:
+        partOrigin = aod::femtodreamMCparticle::ParticleOriginMCTruth::kSecondaryDaughterPhi;
+        break;
+      default:
+        partOrigin = aod::femtodreamMCparticle::ParticleOriginMCTruth::kSecondary;
+    }
   }
   return partOrigin;
 };

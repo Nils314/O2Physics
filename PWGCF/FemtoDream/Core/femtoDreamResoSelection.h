@@ -40,7 +40,6 @@ namespace o2::analysis::femtoDream // o2-linter: disable=name/namespace (Previou
 {
 namespace femto_dream_reso_selection
 {
-
 enum ResoSel {
   kResoSign
 };

@@ -54,7 +54,7 @@ enum TrackSel { kSign,         ///< Sign of the track
                 kDCAxyMax,     ///< Max. DCA_xy (cm)
                 kDCAzMax,      ///< Max. DCA_z (cm)
                 kDCAMin,       ///< Min. DCA_xyz (cm)
-                kPIDnSigmaMax  ///< Max. |n_sigma| for PID
+                kPIDnSigmaMax ///< Max. |n_sigma| for PID
 };
 
 enum TrackContainerPosition {
@@ -95,7 +95,8 @@ class FemtoDreamTrackSelection : public FemtoDreamObjectSelection<float, femtoDr
                                dcaMin(9999999.),
                                nSigmaPIDMax(9999999.),
                                nSigmaPIDOffsetTPC(0.),
-                               nSigmaPIDOffsetTOF(0.) {}
+                               nSigmaPIDOffsetTOF(0.),
+                               nPTPCThr(0.) {}
 
   /// Initializes histograms for the task
   /// \tparam part Type of the particle for proper naming of the folders for QA
@@ -257,6 +258,7 @@ class FemtoDreamTrackSelection : public FemtoDreamObjectSelection<float, femtoDr
   float nSigmaPIDMax;
   float nSigmaPIDOffsetTPC;
   float nSigmaPIDOffsetTOF;
+  float nPTPCThr;
   std::vector<o2::track::PID> mPIDspecies; ///< All the particle species for which the n_sigma values need to be stored
   static constexpr int kNtrackSelection = 14;
   static constexpr std::string_view mSelectionNames[kNtrackSelection] = {"Sign",
@@ -381,6 +383,7 @@ void FemtoDreamTrackSelection::init(HistogramRegistry* QAregistry, HistogramRegi
   dcaZMax = getMinimalSelection(femtoDreamTrackSelection::kDCAzMax, femtoDreamSelection::kAbsUpperLimit);
   dcaMin = getMinimalSelection(femtoDreamTrackSelection::kDCAMin, femtoDreamSelection::kAbsLowerLimit);
   nSigmaPIDMax = getMinimalSelection(femtoDreamTrackSelection::kPIDnSigmaMax, femtoDreamSelection::kAbsUpperLimit);
+  nPTPCThr = assignedValue; // inherited from femtoDreamObjectSelection
 }
 
 template <typename T>
@@ -422,7 +425,7 @@ auto FemtoDreamTrackSelection::getNsigmaITS(T const& track, o2::track::PID pid)
 }
 
 template <typename T>
-bool FemtoDreamTrackSelection::isSelectedMinimal(T const& track)
+bool FemtoDreamTrackSelection::isSelectedMinimal(T const& track) 
 {
   const auto pT = track.pt();
   const auto eta = track.eta();
